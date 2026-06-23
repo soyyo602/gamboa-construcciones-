@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0047AB" />
+  <title>Obra Maestra</title>
+  <link rel="manifest" href="manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --azul:    #0047AB;
+      --azul-oscuro: #00338A;
+      --azul-medio: #0055CC;
+      --amarillo: #FFD700;
+      --amarillo-suave: #FFF3A3;
+      --blanco:  #FFFFFF;
+      --gris:    #2D2D2D;
+      --gris-suave: #F2F4F8;
+      --gris-borde: #D0D7E8;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: var(--gris-suave);
+      color: var(--gris);
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--azul);
+      padding: 20px 24px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 3px 12px rgba(0,71,171,0.25);
+    }
+
+    .logo-icon {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+    }
+
+    .header-text h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.55rem;
+      color: var(--amarillo);
+      letter-spacing: 0.5px;
+      line-height: 1;
+    }
+
+    .header-text p {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    /* ── USUARIO ACTIVO ── */
+    .user-bar {
+      background: var(--azul-oscuro);
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .user-bar span {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .user-bar strong {
+      color: var(--amarillo);
+      font-weight: 600;
+    }
+
+    .user-dot {
+      width: 8px;
+      height: 8px;
+      background: #4ADE80;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+      animation: pulso 2s infinite;
+    }
+
+    @keyframes pulso {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── CONTENIDO ── */
+    main {
+      padding: 20px 16px 32px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .seccion-titulo {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--azul);
+      margin: 24px 0 10px;
+      padding-left: 2px;
+      border-left: 3px solid var(--amarillo);
+      padding-left: 8px;
+    }
+
+    /* ── TARJETAS ── */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .grid.ancho {
+      grid-template-columns: 1fr;
+    }
+
+    .tarjeta {
+      background: var(--blanco);
+      border-radius: 14px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      border: 1.5px solid var(--gris-borde);
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--gris);
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tarjeta:active {
+      transform: scale(0.97);
+    }
+
+    .tarjeta:hover {
+      border-color: var(--azul);
+      box-shadow: 0 6px 20px rgba(0,71,171,0.12);
+    }
+
+    .tarjeta.principal {
+      border-color: var(--azul);
+      background: linear-gradient(135deg, #EEF3FF 0%, #ffffff 100%);
+    }
+
+    .tarjeta.bloqueada {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .tarjeta-icono {
+      font-size: 1.9rem;
+      line-height: 1;
+    }
+
+    .tarjeta-nombre {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--azul);
+      line-height: 1.2;
+    }
+
+    .tarjeta-desc {
+      font-size: 0.72rem;
+      color: #6B7280;
+      line-height: 1.4;
+    }
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 2px 7px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    .badge.activo {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .badge.pronto {
+      background: var(--amarillo-suave);
+      color: #92400E;
+    }
+
+    .badge.restringido {
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+
+    /* ── PIE ── */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 0.68rem;
+      color: #9CA3AF;
+      letter-spacing: 0.5px;
+    }
+
+    footer strong {
+      color: var(--azul);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 360px) {
+      .grid { grid-template-columns: 1fr; }
+      .header-text h1 { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header>
+    <svg class="logo-icon" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="23" cy="23" r="23" fill="#FFD700"/>
+      <!-- Plomada -->
+      <line x1="23" y1="8" x2="23" y2="32" stroke="#0047AB" stroke-width="2.5" stroke-linecap="round"/>
+      <polygon points="23,36 19,28 27,28" fill="#0047AB"/>
+      <!-- Nivel -->
+      <line x1="10" y1="20" x2="36" y2="20" stroke="#0047AB" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="23" cy="20" r="3" fill="#0047AB"/>
+    </svg>
+    <div class="header-text">
+      <h1>OBRA MAESTRA</h1>
+      <p>Gamboa Construcciones · Mérida, Yucatán</p>
+    </div>
+  </header>
+
+  <!-- BARRA DE USUARIO -->
+  <div class="user-bar">
+    <span><span class="user-dot"></span>Sesión activa: <strong>Pedro Felipe Gamboa</strong></span>
+    <span style="font-size:0.7rem; color:rgba(255,255,255,0.5);">Director Técnico</span>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main>
+
+    <!-- CAMPO -->
+    <div class="seccion-titulo">Campo</div>
+    <div class="grid">
+      <a href="#" class="tarjeta principal">
+        <span class="badge activo">Activo</span>
+        <div class="tarjeta-icono">🏗️</div>
+        <div class="tarjeta-nombre">Obra Fácil</div>
+        <div class="tarjeta-desc">Avance diario, materiales y bitácora de campo</div>
+      </a>
+      <a href="#" class="tarjeta principal">
+        <span class="badge activo">Activo</span>
+        <div class="tarjeta-icono">📋</div>
+        <div class="tarjeta-nombre">Guía de Obra</div>
+        <div class="tarjeta-desc">Ruta crítica, procesos y suministros por etapa</div>
+      </a>
+    </div>
+
+    <!-- CÁLCULO TÉCNICO -->
+    <div class="seccion-titulo">Cálculo Técnico</div>
+    <div class="grid">
+      <a href="#" class="tarjeta principal">
+        <span class="badge activo">Activo</span>
+        <div class="tarjeta-icono">📐</div>
+        <div class="tarjeta-nombre">Calcula Estructural</div>
+        <div class="tarjeta-desc">Vigas, columnas, losas y cimentaciones</div>
+      </a>
+      <a href="#" class="tarjeta bloqueada">
+        <span class="badge pronto">Pronto</span>
+        <div class="tarjeta-icono">⚡</div>
+        <div class="tarjeta-nombre">Calcula Eléctrico</div>
+        <div class="tarjeta-desc">Instalación eléctrica y cargas</div>
+      </a>
+      <a href="#" class="tarjeta bloqueada">
+        <span class="badge pronto">Pronto</span>
+        <div class="tarjeta-icono">🧱</div>
+        <div class="tarjeta-nombre">Calcula Acabados</div>
+        <div class="tarjeta-desc">Cómputos y presupuesto de acabados</div>
+      </a>
+    </div>
+
+    <!-- SISTEMAS ESPECIALES -->
+    <div class="seccion-titulo">Sistemas Especiales</div>
+    <div class="grid">
+      <a href="#" class="tarjeta bloqueada">
+        <span class="badge pronto">Pronto</span>
+        <div class="tarjeta-icono">🏊</div>
+        <div class="tarjeta-nombre">Sistema Albercas</div>
+        <div class="tarjeta-desc">Diseño y purificación</div>
+      </a>
+      <a href="#" class="tarjeta bloqueada">
+        <span class="badge pronto">Pronto</span>
+        <div class="tarjeta-icono">💧</div>
+        <div class="tarjeta-nombre">Sistema Cisternas</div>
+        <div class="tarjeta-desc">Diseño y purificación</div>
+      </a>
+    </div>
+
+    <!-- DIRECCIÓN -->
+    <div class="seccion-titulo">Dirección</div>
+    <div class="grid">
+      <a href="#" class="tarjeta">
+        <span class="badge restringido">Privado</span>
+        <div class="tarjeta-icono">📓</div>
+        <div class="tarjeta-nombre">Bitácora de Obra</div>
+        <div class="tarjeta-desc">Registro formal y decisiones técnicas</div>
+      </a>
+      <a href="#" class="tarjeta">
+        <span class="badge restringido">Privado</span>
+        <div class="tarjeta-icono">🚁</div>
+        <div class="tarjeta-nombre">Control Visual</div>
+        <div class="tarjeta-desc">Fotografía aérea y seguimiento por drone</div>
+      </a>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="seccion-titulo">Administración</div>
+    <div class="grid ancho">
+      <a href="#" class="tarjeta">
+        <span class="badge pronto">Pronto</span>
+        <div class="tarjeta-icono">📊</div>
+        <div class="tarjeta-nombre">Dashboard General</div>
+        <div class="tarjeta-desc">Vista global de todos los proyectos activos, costos y avances</div>
+      </a>
+    </div>
+
+  </main>
+
+  <footer>
+    <strong>OBRA MAESTRA</strong> · Ecosistema de Construcción<br/>
+    Gamboa Construcciones · Mérida, Yucatán · v1.0
+  </footer>
+
+</body>
+</html>
